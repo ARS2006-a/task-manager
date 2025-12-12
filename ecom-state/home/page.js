@@ -1,14 +1,8 @@
 'use client';
+import { useState } from 'react';
 
-export default function Garage(){
-  const toggleFaq = (faqNumber) => {
-    const faqElement = document.getElementById(`faq-${faqNumber}`);
-    if (faqElement.classList.contains('hidden')) {
-      faqElement.classList.remove('hidden');
-    } else {
-      faqElement.classList.add('hidden');
-    }
-  };
+export default function Garage() {
+  const [openFaq, setOpenFaq] = useState(null);
 
   return (
     <div className="bg-white min-h-screen w-full relative">
@@ -232,45 +226,24 @@ longevity of your vehicle. From oil changes</p>
         </div>
         
         <div className="space-y-4">
-          <div className="bg-white rounded-[20px] shadow-lg p-6">
-            <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleFaq(1)}>
-              <h4 className="text-lg font-semibold text-black">01. What types of businesses do you support?</h4>
-              <div className="text-xl text-gray-500">▼</div>
+          {[1,2,3,4].map(num => (
+            <div key={num} className="bg-white rounded-[20px] shadow-lg p-6">
+              <div className="flex justify-between items-center cursor-pointer" onClick={() => setOpenFaq(openFaq === num ? null : num)}>
+                <h4 className="text-lg font-semibold text-black">
+                  {num === 1 && "01. What types of businesses do you support?"}
+                  {num === 2 && "02. What are the signs of brake wear?"}
+                  {num === 3 && "03. Are scheduled service intervals important for my car?"}
+                  {num === 4 && "04. Can regular maintenance prevent major repairs?"}
+                </h4>
+                <div className="text-xl text-gray-500">▼</div>
+              </div>
+              {openFaq === num && (
+                <div className="mt-4 text-gray-600">
+                  <p>Car service is essential for maintaining the performance and Car service is essential for maintaining the performance and longevity of your vehicle. From oil changes longevity of your vehicle. From oil changes</p>
+                </div>
+              )}
             </div>
-            <div className="mt-4 text-gray-600 hidden" id="faq-1">
-              <p>Car service is essential for maintaining the performance and Car service is essential for maintaining the performance and longevity of your vehicle. From oil changes longevity of your vehicle. From oil changes</p>
-            </div>
-          </div>
-          
-          <div className="bg-white rounded-[20px] shadow-lg p-6">
-            <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleFaq(2)}>
-              <h4 className="text-lg font-semibold text-black">02. What are the signs of brake wear?</h4>
-              <div className="text-xl text-gray-500">▼</div>
-            </div>
-            <div className="mt-4 text-gray-600 hidden" id="faq-2">
-              <p>Car service is essential for maintaining the performance and Car service is essential for maintaining the performance and longevity of your vehicle. From oil changes longevity of your vehicle. From oil changes</p>
-            </div>
-          </div>
-          
-          <div className="bg-white rounded-[20px] shadow-lg p-6">
-            <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleFaq(3)}>
-              <h4 className="text-lg font-semibold text-black">03. Are scheduled service intervals important for my car?</h4>
-              <div className="text-xl text-gray-500">▼</div>
-            </div>
-            <div className="mt-4 text-gray-600 hidden" id="faq-3">
-              <p>Car service is essential for maintaining the performance and Car service is essential for maintaining the performance and longevity of your vehicle. From oil changes longevity of your vehicle. From oil changes</p>
-            </div>
-          </div>
-          
-          <div className="bg-white rounded-[20px] shadow-lg p-6">
-            <div className="flex justify-between items-center cursor-pointer" onClick={() => toggleFaq(4)}>
-              <h4 className="text-lg font-semibold text-black">04. Can regular maintenance prevent major repairs?</h4>
-              <div className="text-xl text-gray-500">▼</div>
-            </div>
-            <div className="mt-4 text-gray-600 hidden" id="faq-4">
-              <p>Car service is essential for maintaining the performance and Car service is essential for maintaining the performance and longevity of your vehicle. From oil changes longevity of your vehicle. From oil changes</p>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
 
